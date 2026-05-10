@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slovenčina pre Teba 🇸🇰 — Slovak for You</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf6ed;
+    --warm-white: #fffbf5;
+    --red: #d42b2b;
+    --blue: #003DA5;
+    --gold: #c9952a;
+    --dark: #1a1208;
+    --mid: #4a3728;
+    --light-red: #fdf0f0;
+    --light-blue: #f0f4ff;
+    --border: #e8d9c4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--dark);
+    font-family: 'Lora', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--blue) 0%, #001f6b 60%, #0a0a2e 100%);
+    color: white;
+    text-align: center;
+    padding: 60px 24px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(255,255,255,0.03) 40px,
+      rgba(255,255,255,0.03) 80px
+    );
+  }
+  .hero-flag {
+    font-size: 64px;
+    margin-bottom: 16px;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 3.8rem);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: #ffd580;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    opacity: 0.85;
+    max-width: 560px;
+    margin: 0 auto 8px;
+  }
+  .hero-love {
+    font-size: 0.95rem;
+    opacity: 0.6;
+    font-style: italic;
+  }
+
+  /* STRIPE */
+  .stripe {
+    height: 10px;
+    background: linear-gradient(to right, var(--blue) 33.3%, white 33.3%, white 66.6%, var(--red) 66.6%);
+  }
+
+  /* NAVIGATION TABS */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding: 28px 20px 0;
+    background: var(--warm-white);
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .tab-btn {
+    background: none;
+    border: 2px solid var(--border);
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    color: var(--mid);
+    transition: all 0.2s;
+    margin-bottom: 12px;
+  }
+  .tab-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .tab-btn.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+    font-weight: 600;
+  }
+
+  /* SECTIONS */
+  .section { display: none; max-width: 820px; margin: 0 auto; padding: 48px 24px 80px; }
+  .section.visible { display: block; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--dark);
+  }
+  .section-intro {
+    color: var(--mid);
+    font-size: 1rem;
+    margin-bottom: 36px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+    font-style: italic;
+  }
+
+  /* ALPHABET */
+  .alphabet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+  .letter-card {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 14px;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .letter-card:hover {
+    border-color: var(--blue);
+    box-shadow: 0 4px 16px rgba(0,61,165,0.1);
+    transform: translateY(-2px);
+  }
+  .letter-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--blue);
+    display: block;
+  }
+  .letter-sound {
+    font-size: 0.85rem;
+    color: var(--red);
+    font-weight: 600;
+    margin: 2px 0;
+  }
+  .letter-hint-en { font-size: 0.78rem; color: #888; font-style: italic; }
+  .letter-hint-fr { font-size: 0.78rem; color: #555; }
+
+  /* SPECIAL highlight */
+  .letter-card.special { border-color: var(--gold); background: #fffbf0; }
+  .letter-card.special .letter-big { color: var(--gold); }
+
+  /* PHRASES */
+  .phrase-category { margin-bottom: 40px; }
+  .category-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--red);
+    margin-bottom: 16px;
+    padding-left: 12px;
+    border-left: 4px solid var(--red);
+  }
+  .phrase-table { width: 100%; border-collapse: collapse; }
+  .phrase-table thead { background: var(--blue); color: white; }
+  .phrase-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+  }
+  .phrase-table th:first-child { border-radius: 10px 0 0 0; }
+  .phrase-table th:last-child { border-radius: 0 10px 0 0; }
+  .phrase-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  .phrase-table tbody tr:hover { background: var(--light-blue); }
+  .phrase-table td { padding: 13px 16px; vertical-align: top; }
+  .slovak-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--blue);
+  }
+  .pronunciation {
+    font-size: 0.82rem;
+    color: var(--red);
+    font-style: italic;
+    margin-top: 3px;
+  }
+  .english-text { color: var(--dark); font-size: 0.95rem; }
+  .french-text { color: var(--mid); font-size: 0.9rem; font-style: italic; }
+
+  /* GRAMMAR */
+  .grammar-block {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 28px;
+  }
+  .grammar-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--blue);
+    margin-bottom: 10px;
+  }
+  .grammar-note {
+    background: var(--light-red);
+    border-left: 4px solid var(--red);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 0.95rem;
+  }
+  .grammar-note strong { color: var(--red); }
+  .grammar-fr {
+    background: var(--light-blue);
+    border-left: 4px solid var(--blue);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 0.95rem;
+  }
+  .grammar-fr strong { color: var(--blue); }
+  .example-box {
+    background: #f9f9f9;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 14px;
+  }
+  .example-box .ex-sk { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--blue); font-weight: 700; }
+  .example-box .ex-en { color: var(--dark); font-size: 0.9rem; margin-top: 3px; }
+  .example-box .ex-fr { color: var(--mid); font-size: 0.88rem; font-style: italic; }
+
+  /* NUMBERS */
+  .numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .number-card {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.2s;
+  }
+  .number-card:hover { border-color: var(--gold); transform: translateX(3px); }
+  .num-digit {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 40px;
+    text-align: center;
+  }
+  .num-word { font-size: 1.05rem; font-weight: 600; color: var(--blue); }
+  .num-pron { font-size: 0.78rem; color: var(--red); font-style: italic; }
+  .num-fr { font-size: 0.78rem; color: #888; }
+
+  /* TIPS */
+  .tips-grid { display: grid; gap: 20px; }
+  .tip-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 28px;
+    border: 2px solid var(--border);
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    transition: all 0.2s;
+  }
+  .tip-card:hover { border-color: var(--blue); box-shadow: 0 4px 20px rgba(0,61,165,0.08); }
+  .tip-icon { font-size: 2rem; flex-shrink: 0; }
+  .tip-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--blue); margin-bottom: 6px; }
+  .tip-body { font-size: 0.95rem; color: var(--mid); line-height: 1.65; }
+  .tip-body strong { color: var(--dark); }
+
+  /* QUIZ */
+  .quiz-area { max-width: 600px; margin: 0 auto; }
+  .quiz-card {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px;
+    text-align: center;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .quiz-question { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--blue); font-weight: 700; margin-bottom: 10px; }
+  .quiz-sub { font-size: 0.95rem; color: #888; font-style: italic; margin-bottom: 24px; }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+  .quiz-opt {
+    background: var(--cream);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--dark);
+  }
+  .quiz-opt:hover { border-color: var(--blue); background: var(--light-blue); }
+  .quiz-opt.correct { background: #e8f5e9; border-color: #2e7d32; color: #1b5e20; font-weight: 700; }
+  .quiz-opt.wrong { background: #fde8e8; border-color: var(--red); color: var(--red); }
+  .quiz-feedback {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 16px;
+    min-height: 28px;
+  }
+  .quiz-feedback.good { color: #2e7d32; }
+  .quiz-feedback.bad { color: var(--red); }
+  .quiz-controls { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    background: var(--blue);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 28px;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+  .btn:hover { background: #002a80; transform: translateY(-1px); }
+  .btn.red { background: var(--red); }
+  .btn.red:hover { background: #a01f1f; }
+  .quiz-score {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--mid);
+    margin-top: 16px;
+  }
+  .score-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--blue); font-weight: 700; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 2px solid var(--border);
+    color: var(--mid);
+    font-size: 0.9rem;
+    background: var(--warm-white);
+  }
+  footer .heart { color: var(--red); font-size: 1.2rem; }
+  footer p { margin-top: 6px; font-style: italic; }
+
+  /* VOCABULARY SUB-NAV */
+  .vocab-subnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  .vcat-btn {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    cursor: pointer;
+    color: var(--mid);
+    transition: all 0.18s;
+  }
+  .vcat-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .vcat-btn.active { background: var(--gold); border-color: var(--gold); color: white; font-weight: 600; }
+
+  /* VOCAB CATEGORY BLOCK */
+  .vcat-section { display: none; }
+  .vcat-section.vvisible { display: block; }
+
+  /* VOCAB GRID — word cards */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .vocab-card {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    transition: all 0.18s;
+    cursor: default;
+  }
+  .vocab-card:hover { border-color: var(--gold); box-shadow: 0 3px 14px rgba(201,149,42,0.13); transform: translateY(-2px); }
+  .vc-sk { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--blue); }
+  .vc-pron { font-size: 0.78rem; color: var(--red); font-style: italic; margin: 2px 0; }
+  .vc-en { font-size: 0.88rem; color: var(--dark); }
+  .vc-fr { font-size: 0.82rem; color: #888; font-style: italic; }
+
+  /* Time table rows */
+  .time-table { width: 100%; border-collapse: collapse; margin-bottom: 28px; }
+  .time-table thead { background: var(--gold); color: white; }
+  .time-table th { padding: 10px 14px; font-family: 'Lora', serif; font-weight: 600; font-size: 0.9rem; text-align: left; }
+  .time-table th:first-child { border-radius: 10px 0 0 0; }
+  .time-table th:last-child { border-radius: 0 10px 0 0; }
+  .time-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.13s; }
+  .time-table tbody tr:hover { background: #fffbf0; }
+  .time-table td { padding: 11px 14px; }
+  .time-table .t-sk { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--blue); }
+  .time-table .t-pron { font-size: 0.78rem; color: var(--red); font-style: italic; }
+  .time-table .t-en { font-size: 0.9rem; }
+  .time-table .t-fr { font-size: 0.85rem; color: #777; font-style: italic; }
+
+  .season-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .season-card { border-radius: 16px; padding: 22px 20px; text-align: center; border: 2px solid transparent; transition: all 0.2s; }
+  .season-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+  .season-card.spring { background: #f0fbf0; border-color: #7bc97b; }
+  .season-card.summer { background: #fffde7; border-color: #fdd835; }
+  .season-card.autumn { background: #fff3e0; border-color: #ef8a30; }
+  .season-card.winter { background: #e8f4ff; border-color: #64b5f6; }
+  .season-icon { font-size: 2.6rem; display: block; margin-bottom: 8px; }
+  .season-sk { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--blue); }
+  .season-pron { font-size: 0.8rem; color: var(--red); font-style: italic; margin: 3px 0; }
+  .season-en { font-size: 0.9rem; color: var(--dark); }
+  .season-fr { font-size: 0.85rem; color: #777; font-style: italic; }
+
+  @media (max-width: 600px) {
+    .alphabet-grid { grid-template-columns: repeat(3, 1fr); }
+    .phrase-table th, .phrase-table td { padding: 10px 10px; font-size: 0.88rem; }
+    .slovak-text { font-size: 1rem; }
+    .quiz-options { grid-template-columns: 1fr; }
+    .vocab-grid { grid-template-columns: repeat(2, 1fr); }
+    .season-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-flag">🇸🇰</span>
+  <h1>Slovenčina pre Teba<br><em>Slovak, just for you</em></h1>
+  <p class="hero-sub">A gentle guide to the Slovak language — explained in English &amp; French</p>
+  <p class="hero-love">Made with love, from Slovakia 🤍</p>
+</div>
+<div class="stripe"></div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="showSection('alphabet')">🔤 Alphabet</button>
+  <button class="tab-btn" onclick="showSection('phrases')">💬 Phrases</button>
+  <button class="tab-btn" onclick="showSection('numbers')">🔢 Numbers</button>
+  <button class="tab-btn" onclick="showSection('vocab')">📚 Vocabulary</button>
+  <button class="tab-btn" onclick="showSection('grammar')">📖 Grammar</button>
+  <button class="tab-btn" onclick="showSection('tips')">💡 Tips</button>
+  <button class="tab-btn" onclick="showSection('quiz')">🧠 Quiz</button>
+</div>
+
+<!-- ═══════════════════════ ALPHABET ═══════════════════════ -->
+<div id="alphabet" class="section visible">
+  <h2 class="section-title">🔤 The Slovak Alphabet</h2>
+  <p class="section-intro">Slovak uses 46 letters — including special ones with diacritics (accents). Many sound similar to French or English, but some are uniquely Slovak. Hover over each card to focus!</p>
+
+  <div class="alphabet-grid">
+    <!-- Regular -->
+    <div class="letter-card"><span class="letter-big">A a</span><span class="letter-sound">[ah]</span><span class="letter-hint-en">like "father"</span><span class="letter-hint-fr">comme "patte"</span></div>
+    <div class="letter-card"><span class="letter-big">Á á</span><span class="letter-sound">[aah]</span><span class="letter-hint-en">long "a" sound</span><span class="letter-hint-fr">«a» long</span></div>
+    <div class="letter-card"><span class="letter-big">B b</span><span class="letter-sound">[beh]</span><span class="letter-hint-en">like English "b"</span><span class="letter-hint-fr">comme «b»</span></div>
+    <div class="letter-card"><span class="letter-big">C c</span><span class="letter-sound">[tseh]</span><span class="letter-hint-en">like "ts" in "cats"</span><span class="letter-hint-fr">comme «ts»</span></div>
+    <div class="letter-card special"><span class="letter-big">Č č</span><span class="letter-sound">[cheh]</span><span class="letter-hint-en">like "ch" in "church"</span><span class="letter-hint-fr">comme «tch»</span></div>
+    <div class="letter-card"><span class="letter-big">D d</span><span class="letter-sound">[deh]</span><span class="letter-hint-en">like English "d"</span><span class="letter-hint-fr">comme «d»</span></div>
+    <div class="letter-card special"><span class="letter-big">Ď ď</span><span class="letter-sound">[dyeh]</span><span class="letter-hint-en">soft "d" + y sound</span><span class="letter-hint-fr">«dj» doux</span></div>
+    <div class="letter-card"><span class="letter-big">DZ dz</span><span class="letter-sound">[dzeh]</span><span class="letter-hint-en">like "ds" in "heads"</span><span class="letter-hint-fr">comme «dz»</span></div>
+    <div class="letter-card special"><span class="letter-big">DŽ dž</span><span class="letter-sound">[jeh]</span><span class="letter-hint-en">like "j" in "jungle"</span><span class="letter-hint-fr">comme «dj»</span></div>
+    <div class="letter-card"><span class="letter-big">E e</span><span class="letter-sound">[eh]</span><span class="letter-hint-en">like "e" in "bed"</span><span class="letter-hint-fr">comme «é»</span></div>
+    <div class="letter-card"><span class="letter-big">É é</span><span class="letter-sound">[eeh]</span><span class="letter-hint-en">long "e" sound</span><span class="letter-hint-fr">«é» long</span></div>
+    <div class="letter-card"><span class="letter-big">F f</span><span class="letter-sound">[ef]</span><span class="letter-hint-en">like English "f"</span><span class="letter-hint-fr">comme «f»</span></div>
+    <div class="letter-card"><span class="letter-big">G g</span><span class="letter-sound">[geh]</span><span class="letter-hint-en">like "g" in "go"</span><span class="letter-hint-fr">comme «g» dur</span></div>
+    <div class="letter-card"><span class="letter-big">H h</span><span class="letter-sound">[hah]</span><span class="letter-hint-en">breathy "h"</span><span class="letter-hint-fr">«h» aspiré</span></div>
+    <div class="letter-card"><span class="letter-big">CH ch</span><span class="letter-sound">[khh]</span><span class="letter-hint-en">like "ch" in "loch"</span><span class="letter-hint-fr">comme «j» espagnol</span></div>
+    <div class="letter-card"><span class="letter-big">I i</span><span class="letter-sound">[ih]</span><span class="letter-hint-en">like "i" in "bit"</span><span class="letter-hint-fr">court comme «i»</span></div>
+    <div class="letter-card"><span class="letter-big">Í í</span><span class="letter-sound">[eeh]</span><span class="letter-hint-en">long "ee" sound</span><span class="letter-hint-fr">«i» long</span></div>
+    <div class="letter-card"><span class="letter-big">J j</span><span class="letter-sound">[yeh]</span><span class="letter-hint-en">like "y" in "yes"</span><span class="letter-hint-fr">comme «y» dans "yeux"</span></div>
+    <div class="letter-card"><span class="letter-big">K k</span><span class="letter-sound">[kah]</span><span class="letter-hint-en">like English "k"</span><span class="letter-hint-fr">comme «k»</span></div>
+    <div class="letter-card"><span class="letter-big">L l</span><span class="letter-sound">[el]</span><span class="letter-hint-en">like English "l"</span><span class="letter-hint-fr">comme «l»</span></div>
+    <div class="letter-card special"><span class="letter-big">Ľ ľ</span><span class="letter-sound">[lyeh]</span><span class="letter-hint-en">soft "l" + y blend</span><span class="letter-hint-fr">«lj» doux</span></div>
+    <div class="letter-card special"><span class="letter-big">Ĺ ĺ</span><span class="letter-sound">[lll]</span><span class="letter-hint-en">long syllabic "l"</span><span class="letter-hint-fr">«l» syllabique long</span></div>
+    <div class="letter-card"><span class="letter-big">M m</span><span class="letter-sound">[em]</span><span class="letter-hint-en">like English "m"</span><span class="letter-hint-fr">comme «m»</span></div>
+    <div class="letter-card"><span class="letter-big">N n</span><span class="letter-sound">[en]</span><span class="letter-hint-en">like English "n"</span><span class="letter-hint-fr">comme «n»</span></div>
+    <div class="letter-card special"><span class="letter-big">Ň ň</span><span class="letter-sound">[nyeh]</span><span class="letter-hint-en">like "ny" in "canyon"</span><span class="letter-hint-fr">comme «gn» dans "agneau"</span></div>
+    <div class="letter-card"><span class="letter-big">O o</span><span class="letter-sound">[oh]</span><span class="letter-hint-en">like "o" in "hot"</span><span class="letter-hint-fr">comme «o»</span></div>
+    <div class="letter-card"><span class="letter-big">Ó ó</span><span class="letter-sound">[ooh]</span><span class="letter-hint-en">long "o" sound</span><span class="letter-hint-fr">«o» long</span></div>
+    <div class="letter-card"><span class="letter-big">Ô ô</span><span class="letter-sound">[wo]</span><span class="letter-hint-en">like "wo" in "won"</span><span class="letter-hint-fr">comme «oua» court</span></div>
+    <div class="letter-card"><span class="letter-big">P p</span><span class="letter-sound">[peh]</span><span class="letter-hint-en">like English "p"</span><span class="letter-hint-fr">comme «p»</span></div>
+    <div class="letter-card"><span class="letter-big">R r</span><span class="letter-sound">[er]</span><span class="letter-hint-en">rolled "r" (trilled)</span><span class="letter-hint-fr">«r» roulé</span></div>
+    <div class="letter-card special"><span class="letter-big">Ŕ ŕ</span><span class="letter-sound">[rrr]</span><span class="letter-hint-en">long syllabic rolled "r"</span><span class="letter-hint-fr">«r» roulé long</span></div>
+    <div class="letter-card"><span class="letter-big">S s</span><span class="letter-sound">[es]</span><span class="letter-hint-en">like English "s"</span><span class="letter-hint-fr">comme «s»</span></div>
+    <div class="letter-card special"><span class="letter-big">Š š</span><span class="letter-sound">[sh]</span><span class="letter-hint-en">like "sh" in "ship"</span><span class="letter-hint-fr">comme «ch» dans "chien"</span></div>
+    <div class="letter-card"><span class="letter-big">T t</span><span class="letter-sound">[teh]</span><span class="letter-hint-en">like English "t"</span><span class="letter-hint-fr">comme «t»</span></div>
+    <div class="letter-card special"><span class="letter-big">Ť ť</span><span class="letter-sound">[tyeh]</span><span class="letter-hint-en">soft "t" + y blend</span><span class="letter-hint-fr">«tj» doux</span></div>
+    <div class="letter-card"><span class="letter-big">U u</span><span class="letter-sound">[oo]</span><span class="letter-hint-en">like "oo" in "book"</span><span class="letter-hint-fr">comme «ou»</span></div>
+    <div class="letter-card"><span class="letter-big">Ú ú</span><span class="letter-sound">[ooh]</span><span class="letter-hint-en">long "oo" sound</span><span class="letter-hint-fr">«ou» long</span></div>
+    <div class="letter-card"><span class="letter-big">V v</span><span class="letter-sound">[veh]</span><span class="letter-hint-en">like English "v"</span><span class="letter-hint-fr">comme «v»</span></div>
+    <div class="letter-card"><span class="letter-big">Y y</span><span class="letter-sound">[ih]</span><span class="letter-hint-en">same sound as "i"</span><span class="letter-hint-fr">identique au «i»</span></div>
+    <div class="letter-card"><span class="letter-big">Ý ý</span><span class="letter-sound">[eeh]</span><span class="letter-hint-en">long "ee" sound</span><span class="letter-hint-fr">«i» long</span></div>
+    <div class="letter-card"><span class="letter-big">Z z</span><span class="letter-sound">[zeh]</span><span class="letter-hint-en">like English "z"</span><span class="letter-hint-fr">comme «z»</span></div>
+    <div class="letter-card special"><span class="letter-big">Ž ž</span><span class="letter-sound">[zheh]</span><span class="letter-hint-en">like "s" in "measure"</span><span class="letter-hint-fr">comme «j» dans "je"</span></div>
+  </div>
+
+  <div class="grammar-note">
+    <strong>⭐ Great news for French speakers!</strong> The letters <strong>Š, Ž, Č</strong> may look strange but they produce sounds that exist in French: Š = «ch», Ž = «j», and Č = «tch». You already know these sounds!
+  </div>
+  <div class="grammar-fr" style="margin-top:14px;">
+    <strong>🇸🇰 Pronunciation rule:</strong> In Slovak, every letter is always pronounced the same way — no silent letters! Words are spelled exactly as they sound. This makes reading much easier than English or French!
+  </div>
+</div>
+
+<!-- ═══════════════════════ PHRASES ═══════════════════════ -->
+<div id="phrases" class="section">
+  <h2 class="section-title">💬 Essential Phrases</h2>
+  <p class="section-intro">Start with these everyday phrases. The pronunciation guide (in red italics) shows you how to say each word out loud — read it like you would read French or English.</p>
+
+  <div class="phrase-category">
+    <div class="category-label">👋 Greetings</div>
+    <table class="phrase-table">
+      <thead><tr><th>🇸🇰 Slovak</th><th>🇬🇧 English</th><th>🇫🇷 Français</th></tr></thead>
+      <tbody>
+        <tr><td><div class="slovak-text">Ahoj!</div><div class="pronunciation">ah-hoy</div></td><td class="english-text">Hi! / Hello! (informal)</td><td class="french-text">Salut!</td></tr>
+        <tr><td><div class="slovak-text">Dobrý deň</div><div class="pronunciation">dob-ree dyen</div></td><td class="english-text">Good day / Hello (formal)</td><td class="french-text">Bonjour</td></tr>
+        <tr><td><div class="slovak-text">Dobré ráno</div><div class="pronunciation">dob-reh rah-no</div></td><td class="english-text">Good morning</td><td class="french-text">Bonjour (le matin)</td></tr>
+        <tr><td><div class="slovak-text">Dobrý večer</div><div class="pronunciation">dob-ree veh-cher</div></td><td class="english-text">Good evening</td><td class="french-text">Bonsoir</td></tr>
+        <tr><td><div class="slovak-text">Dobrú noc</div><div class="pronunciation">dob-roo nots</div></td><td class="english-text">Good night</td><td class="french-text">Bonne nuit</td></tr>
+        <tr><td><div class="slovak-text">Čau!</div><div class="pronunciation">chow</div></td><td class="english-text">Bye! / Hey! (very informal)</td><td class="french-text">Ciao!</td></tr>
+        <tr><td><div class="slovak-text">Zbohom</div><div class="pronunciation">zboh-om</div></td><td class="english-text">Goodbye (formal)</td><td class="french-text">Au revoir (formel)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="phrase-category">
+    <div class="category-label">🙏 Politeness</div>
+    <table class="phrase-table">
+      <thead><tr><th>🇸🇰 Slovak</th><th>🇬🇧 English</th><th>🇫🇷 Français</th></tr></thead>
+      <tbody>
+        <tr><td><div class="slovak-text">Ďakujem</div><div class="pronunciation">dyah-koo-yem</div></td><td class="english-text">Thank you</td><td class="french-text">Merci</td></tr>
+        <tr><td><div class="slovak-text">Prosím</div><div class="pronunciation">pro-seem</div></td><td class="english-text">Please / You're welcome</td><td class="french-text">S'il vous plaît / De rien</td></tr>
+        <tr><td><div class="slovak-text">Prepáčte</div><div class="pronunciation">preh-pach-teh</div></td><td class="english-text">Excuse me / Sorry (formal)</td><td class="french-text">Excusez-moi / Pardon</td></tr>
+        <tr><td><div class="slovak-text">Prepáč</div><div class="pronunciation">preh-pach</div></td><td class="english-text">Sorry (informal)</td><td class="french-text">Désolé(e)</td></tr>
+        <tr><td><div class="slovak-text">Áno / Nie</div><div class="pronunciation">ah-no / nyeh</div></td><td class="english-text">Yes / No</td><td class="french-text">Oui / Non</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="phrase-category">
+    <div class="category-label">❤️ Romance & Love</div>
+    <table class="phrase-table">
+      <thead><tr><th>🇸🇰 Slovak</th><th>🇬🇧 English</th><th>🇫🇷 Français</th></tr></thead>
+      <tbody>
+        <tr><td><div class="slovak-text">Ľúbim ťa</div><div class="pronunciation">lyoo-beem tya</div></td><td class="english-text">I love you</td><td class="french-text">Je t'aime</td></tr>
+        <tr><td><div class="slovak-text">Si krásna</div><div class="pronunciation">si kras-na</div></td><td class="english-text">You are beautiful</td><td class="french-text">Tu es belle</td></tr>
+        <tr><td><div class="slovak-text">Chýbaš mi</div><div class="pronunciation">khee-bash mee</div></td><td class="english-text">I miss you</td><td class="french-text">Tu me manques</td></tr>
+        <tr><td><div class="slovak-text">Si môj život</div><div class="pronunciation">si mwoy zhee-vot</div></td><td class="english-text">You are my life</td><td class="french-text">Tu es ma vie</td></tr>
+        <tr><td><div class="slovak-text">Milujem ťa</div><div class="pronunciation">mee-loo-yem tya</div></td><td class="english-text">I love you (deeply)</td><td class="french-text">Je t'aime (profondément)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="phrase-category">
+    <div class="category-label">🛒 Everyday Life</div>
+    <table class="phrase-table">
+      <thead><tr><th>🇸🇰 Slovak</th><th>🇬🇧 English</th><th>🇫🇷 Français</th></tr></thead>
+      <tbody>
+        <tr><td><div class="slovak-text">Kde je...?</div><div class="pronunciation">kdeh yeh</div></td><td class="english-text">Where is...?</td><td class="french-text">Où est...?</td></tr>
+        <tr><td><div class="slovak-text">Koľko to stojí?</div><div class="pronunciation">kol-ko to stoh-yee</div></td><td class="english-text">How much does it cost?</td><td class="french-text">Combien ça coûte?</td></tr>
+        <tr><td><div class="slovak-text">Nerozumiem</div><div class="pronunciation">neh-roz-oom-yem</div></td><td class="english-text">I don't understand</td><td class="french-text">Je ne comprends pas</td></tr>
+        <tr><td><div class="slovak-text">Hovoríte po anglicky?</div><div class="pronunciation">hov-or-ee-teh po ang-lits-ki</div></td><td class="english-text">Do you speak English?</td><td class="french-text">Parlez-vous anglais?</td></tr>
+        <tr><td><div class="slovak-text">Pomôžte mi!</div><div class="pronunciation">po-mwozh-teh mee</div></td><td class="english-text">Help me!</td><td class="french-text">Aidez-moi!</td></tr>
+        <tr><td><div class="slovak-text">Mám ťa rada</div><div class="pronunciation">mam tya rah-da</div></td><td class="english-text">I like you (said by a woman)</td><td class="french-text">Je t'aime bien (dit par une femme)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════ NUMBERS ═══════════════════════ -->
+<div id="numbers" class="section">
+  <h2 class="section-title">🔢 Numbers</h2>
+  <p class="section-intro">Slovak numbers follow logical patterns. Learn 1–10 well, and the rest becomes much easier!</p>
+
+  <div class="numbers-grid">
+    <div class="number-card"><div class="num-digit">0</div><div><div class="num-word">nula</div><div class="num-pron">noo-la</div><div class="num-fr">zéro</div></div></div>
+    <div class="number-card"><div class="num-digit">1</div><div><div class="num-word">jeden / jedna</div><div class="num-pron">yeh-den / yed-na</div><div class="num-fr">un / une</div></div></div>
+    <div class="number-card"><div class="num-digit">2</div><div><div class="num-word">dva / dve</div><div class="num-pron">dva / dveh</div><div class="num-fr">deux</div></div></div>
+    <div class="number-card"><div class="num-digit">3</div><div><div class="num-word">tri</div><div class="num-pron">tree</div><div class="num-fr">trois</div></div></div>
+    <div class="number-card"><div class="num-digit">4</div><div><div class="num-word">štyri</div><div class="num-pron">shtee-ri</div><div class="num-fr">quatre</div></div></div>
+    <div class="number-card"><div class="num-digit">5</div><div><div class="num-word">päť</div><div class="num-pron">pahtj</div><div class="num-fr">cinq</div></div></div>
+    <div class="number-card"><div class="num-digit">6</div><div><div class="num-word">šesť</div><div class="num-pron">shestj</div><div class="num-fr">six</div></div></div>
+    <div class="number-card"><div class="num-digit">7</div><div><div class="num-word">sedem</div><div class="num-pron">seh-dem</div><div class="num-fr">sept</div></div></div>
+    <div class="number-card"><div class="num-digit">8</div><div><div class="num-word">osem</div><div class="num-pron">oh-sem</div><div class="num-fr">huit</div></div></div>
+    <div class="number-card"><div class="num-digit">9</div><div><div class="num-word">deväť</div><div class="num-pron">deh-vahtj</div><div class="num-fr">neuf</div></div></div>
+    <div class="number-card"><div class="num-digit">10</div><div><div class="num-word">desať</div><div class="num-pron">deh-satj</div><div class="num-fr">dix</div></div></div>
+    <div class="number-card"><div class="num-digit">11</div><div><div class="num-word">jedenásť</div><div class="num-pron">yeh-den-astj</div><div class="num-fr">onze</div></div></div>
+    <div class="number-card"><div class="num-digit">12</div><div><div class="num-word">dvanásť</div><div class="num-pron">dva-nastj</div><div class="num-fr">douze</div></div></div>
+    <div class="number-card"><div class="num-digit">20</div><div><div class="num-word">dvadsať</div><div class="num-pron">dva-dsatj</div><div class="num-fr">vingt</div></div></div>
+    <div class="number-card"><div class="num-digit">100</div><div><div class="num-word">sto</div><div class="num-pron">sto</div><div class="num-fr">cent</div></div></div>
+    <div class="number-card"><div class="num-digit">1000</div><div><div class="num-word">tisíc</div><div class="num-pron">tee-seets</div><div class="num-fr">mille</div></div></div>
+  </div>
+
+  <div class="grammar-note">
+    <strong>💡 Pattern:</strong> Numbers 11–19 are formed by adding <strong>-násť</strong> to the base: jedenásť (11), dvanásť (12), trinásť (13)... just like "-teen" in English or "-ze/-ze" in French!
+  </div>
+  <div class="grammar-fr" style="margin-top:14px;">
+    <strong>🇫🇷 Note for French speakers:</strong> Slovak has two forms of 1 and 2 depending on the gender of the noun — <em>jeden/jedna</em> and <em>dva/dve</em>. Similar to how French has <em>un/une</em> and <em>deux</em> (which doesn't change)!
+  </div>
+</div>
+
+<!-- ═══════════════════════ GRAMMAR ═══════════════════════ -->
+<div id="grammar" class="section">
+  <h2 class="section-title">📖 Grammar Basics</h2>
+  <p class="section-intro">Slovak grammar is more complex than French or English — but understanding a few key ideas will help enormously. Don't try to memorize everything at once!</p>
+
+  <div class="grammar-block">
+    <h3>1. Stress is Always on the First Syllable</h3>
+    <p>Unlike French (where stress falls at the end) or English (which is unpredictable), Slovak stress is simple: the <strong>first syllable</strong> of every word is always stressed.</p>
+    <div class="grammar-fr"><strong>🇫🇷 Pour les francophones:</strong> En français vous accentuez la dernière syllabe; en slovaque c'est toujours la <em>première</em> syllabe. Essayez: <em>DO-brý</em>, <em>ĎA-ku-jem</em>.</div>
+    <div class="example-box">
+      <div class="ex-sk">ĎA-ku-jem / DO-brý deň / KRÁ-sna</div>
+      <div class="ex-en">Thank you / Good day / Beautiful</div>
+      <div class="ex-fr">Merci / Bonjour / Belle</div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <h3>2. Nouns Have Genders</h3>
+    <p>Like French, Slovak nouns are <strong>masculine, feminine, or neuter</strong>. This affects adjectives, verbs, and word endings.</p>
+    <div class="grammar-fr"><strong>🇫🇷 Bonne nouvelle!</strong> Le concept de genre grammatical est familier aux francophones. Masculin = «muž» (homme), Féminin = «žena» (femme), Neutre = «mesto» (ville).</div>
+    <div class="example-box">
+      <div class="ex-sk">dobrý muž · dobrá žena · dobré mesto</div>
+      <div class="ex-en">a good man · a good woman · a good city</div>
+      <div class="ex-fr">un bon homme · une bonne femme · une bonne ville</div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <h3>3. Cases — The Big Challenge</h3>
+    <p>Slovak has <strong>7 grammatical cases</strong> — word endings change depending on the noun's role in the sentence. English has none; French has almost none. This is the hardest part!</p>
+    <div class="grammar-note"><strong>⚠️ Don't panic!</strong> You don't need to master all 7 cases to communicate. Start by recognizing patterns, not memorizing tables. Even Slovaks struggle to name all cases.</div>
+    <div class="example-box">
+      <div class="ex-sk">Vidím <strong>ženu</strong>. / Hovorím so <strong>ženou</strong>. / To je <strong>žena</strong>.</div>
+      <div class="ex-en">I see the <strong>woman</strong>. / I'm talking with the <strong>woman</strong>. / That is the <strong>woman</strong>.</div>
+      <div class="ex-fr">Je vois la femme. / Je parle avec la femme. / C'est la femme.</div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <h3>4. No Articles (No «le», «la», «the»)</h3>
+    <p>Slovak has <strong>no articles</strong> — no equivalent of "the", "a", "le", "la", or "un". The noun stands alone.</p>
+    <div class="grammar-fr"><strong>🇫🇷 Pour les francophones:</strong> Vous n'avez pas besoin de dire «le» ou «un» — c'est beaucoup plus simple! «Pes» = le chien / un chien / des chiens selon le contexte.</div>
+    <div class="example-box">
+      <div class="ex-sk">Pes je veľký.</div>
+      <div class="ex-en">The dog is big. / A dog is big.</div>
+      <div class="ex-fr">Le chien est grand.</div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <h3>5. Verb "To Be" — Byť</h3>
+    <p>The verb "to be" is essential. Here are its present tense forms:</p>
+    <div class="example-box">
+      <div class="ex-sk">ja <strong>som</strong> · ty <strong>si</strong> · on/ona <strong>je</strong><br>my <strong>sme</strong> · vy <strong>ste</strong> · oni <strong>sú</strong></div>
+      <div class="ex-en">I am · you are · he/she is<br>we are · you (pl.) are · they are</div>
+      <div class="ex-fr">je suis · tu es · il/elle est<br>nous sommes · vous êtes · ils/elles sont</div>
+    </div>
+  </div>
+
+  <div class="grammar-block">
+    <h3>6. Useful Question Words</h3>
+    <div class="example-box">
+      <div class="ex-sk">Kto? · Čo? · Kde? · Kedy? · Prečo? · Ako? · Koľko?</div>
+      <div class="ex-en">Who? · What? · Where? · When? · Why? · How? · How many?</div>
+      <div class="ex-fr">Qui? · Quoi? · Où? · Quand? · Pourquoi? · Comment? · Combien?</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ TIPS ═══════════════════════ -->
+<div id="tips" class="section">
+  <h2 class="section-title">💡 Tips for Learning Slovak</h2>
+  <p class="section-intro">Learning Slovak as a French or English speaker is a real challenge — but also a beautiful adventure. Here are the best strategies to make progress faster.</p>
+
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-icon">🎧</div>
+      <div><div class="tip-title">Listen before you speak</div><div class="tip-body">Slovak pronunciation is very different from French or English. Listen to Slovak music, podcasts, or YouTube videos before trying to speak. Apps like <strong>Pimsleur</strong> or YouTube channels for Slovak learners are excellent starting points.</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">📖</div>
+      <div><div class="tip-title">Reading is easier than it sounds</div><div class="tip-body">Slovak spelling is phonetic — every letter has ONE sound, always. Once you know the alphabet, you can read any Slovak word out loud correctly. Unlike French or English, there are <strong>no silent letters</strong> and no confusing spelling rules.</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🔤</div>
+      <div><div class="tip-title">Focus on the special letters first</div><div class="tip-body">Learn <strong>š, č, ž, ľ, ď, ť, ň</strong> — these are the letters most different from French/English. The good news: Š = French «ch», Ž = French «j», Č = «tch». You already know these sounds from French!</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🗣️</div>
+      <div><div class="tip-title">Don't be afraid to make mistakes</div><div class="tip-body">Slovaks are always <strong>delighted and touched</strong> when foreigners try to speak Slovak. Even a simple «Dobrý deň» or «Ďakujem» will make people smile warmly. Mistakes are part of learning — embrace them!</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">💬</div>
+      <div><div class="tip-title">Start with phrases, not grammar</div><div class="tip-body">Slovak grammar is complex. Don't start with textbooks and grammar tables — start with <strong>practical phrases</strong> for everyday situations. Grammar understanding will come naturally with exposure and practice over time.</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🇨🇿</div>
+      <div><div class="tip-title">Czech is very similar!</div><div class="tip-body">Czech and Slovak are so close that speakers can usually understand each other. If you ever find Slovak content too rare, <strong>Czech movies, music, and apps</strong> (like Duolingo for Czech) will help you enormously — and transfer directly to Slovak.</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">📱</div>
+      <div><div class="tip-title">Useful Apps & Resources</div><div class="tip-body"><strong>Duolingo</strong> — no Slovak, but Czech is very close. <strong>Anki</strong> — make flashcard decks for Slovak words. <strong>Google Translate</strong> — has Slovak with audio pronunciation. <strong>YouTube</strong> — search "Slovak for beginners" for free video lessons.</div></div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">❤️</div>
+      <div><div class="tip-title">Your best teacher is your motivation</div><div class="tip-body">Learning a language to connect with someone you love is one of the most powerful motivations. Even small steps — learning a greeting, a phrase, a sweet word — mean the world to someone from Slovakia. <strong>Každý krôčik sa počíta.</strong> (Every little step counts.)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ QUIZ ═══════════════════════ -->
+<div id="quiz" class="section">
+  <h2 class="section-title">🧠 Practice Quiz</h2>
+  <p class="section-intro">Test what you've learned! Translate the Slovak word or phrase into English or French. New questions every time!</p>
+
+  <div class="quiz-area">
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-question" id="quizQ">—</div>
+      <div class="quiz-sub" id="quizSub">Loading...</div>
+      <div class="quiz-options" id="quizOpts"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+    </div>
+    <div class="quiz-controls">
+      <button class="btn" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+      <button class="btn red" onclick="resetQuiz()">Restart Quiz</button>
+    </div>
+    <div class="quiz-score">Score: <span class="score-num" id="scoreDisplay">0 / 0</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ VOCABULARY ═══════════════════════ -->
+<div id="vocab" class="section">
+  <h2 class="section-title">📚 Vocabulary</h2>
+  <p class="section-intro">Explore 10 essential topic areas. Click a category below to jump to it. Each word shows Slovak, pronunciation (in red), English, and French.</p>
+
+  <div class="vocab-subnav">
+    <button class="vcat-btn active" onclick="showVcat('fam')">👨‍👩‍👧 Family</button>
+    <button class="vcat-btn" onclick="showVcat('places')">🏙️ Places</button>
+    <button class="vcat-btn" onclick="showVcat('body')">🫀 Body</button>
+    <button class="vcat-btn" onclick="showVcat('food')">🍽️ Food</button>
+    <button class="vcat-btn" onclick="showVcat('wq')">❓ W-Questions</button>
+    <button class="vcat-btn" onclick="showVcat('days')">📅 Days</button>
+    <button class="vcat-btn" onclick="showVcat('time')">🕐 Time</button>
+    <button class="vcat-btn" onclick="showVcat('months')">🗓️ Months</button>
+    <button class="vcat-btn" onclick="showVcat('seasons')">🌸 Seasons</button>
+    <button class="vcat-btn" onclick="showVcat('clothing')">👗 Clothing</button>
+  </div>
+
+  <!-- FAMILY -->
+  <div id="fam" class="vcat-section vvisible">
+    <div class="category-label">👨‍👩‍👧 Family — Rodina</div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="vc-sk">rodina</div><div class="vc-pron">ro-dee-na</div><div class="vc-en">family</div><div class="vc-fr">famille</div></div>
+      <div class="vocab-card"><div class="vc-sk">mama / matka</div><div class="vc-pron">ma-ma / mat-ka</div><div class="vc-en">mum / mother</div><div class="vc-fr">maman / mère</div></div>
+      <div class="vocab-card"><div class="vc-sk">otec / tato</div><div class="vc-pron">o-tets / ta-to</div><div class="vc-en">father / dad</div><div class="vc-fr">père / papa</div></div>
+      <div class="vocab-card"><div class="vc-sk">syn</div><div class="vc-pron">sin</div><div class="vc-en">son</div><div class="vc-fr">fils</div></div>
+      <div class="vocab-card"><div class="vc-sk">dcéra</div><div class="vc-pron">dtsé-ra</div><div class="vc-en">daughter</div><div class="vc-fr">fille</div></div>
+      <div class="vocab-card"><div class="vc-sk">brat</div><div class="vc-pron">brat</div><div class="vc-en">brother</div><div class="vc-fr">frère</div></div>
+      <div class="vocab-card"><div class="vc-sk">sestra</div><div class="vc-pron">ses-tra</div><div class="vc-en">sister</div><div class="vc-fr">sœur</div></div>
+      <div class="vocab-card"><div class="vc-sk">starý otec</div><div class="vc-pron">sta-ree o-tets</div><div class="vc-en">grandfather</div><div class="vc-fr">grand-père</div></div>
+      <div class="vocab-card"><div class="vc-sk">stará mama</div><div class="vc-pron">sta-ra ma-ma</div><div class="vc-en">grandmother</div><div class="vc-fr">grand-mère</div></div>
+      <div class="vocab-card"><div class="vc-sk">strýko</div><div class="vc-pron">stree-ko</div><div class="vc-en">uncle</div><div class="vc-fr">oncle</div></div>
+      <div class="vocab-card"><div class="vc-sk">teta</div><div class="vc-pron">te-ta</div><div class="vc-en">aunt</div><div class="vc-fr">tante</div></div>
+      <div class="vocab-card"><div class="vc-sk">bratranec</div><div class="vc-pron">brat-ra-nets</div><div class="vc-en">male cousin</div><div class="vc-fr">cousin</div></div>
+      <div class="vocab-card"><div class="vc-sk">sesternica</div><div class="vc-pron">ses-ter-ni-tsa</div><div class="vc-en">female cousin</div><div class="vc-fr">cousine</div></div>
+      <div class="vocab-card"><div class="vc-sk">manžel</div><div class="vc-pron">man-zhel</div><div class="vc-en">husband</div><div class="vc-fr">mari</div></div>
+      <div class="vocab-card"><div class="vc-sk">manželka</div><div class="vc-pron">man-zhel-ka</div><div class="vc-en">wife</div><div class="vc-fr">femme / épouse</div></div>
+      <div class="vocab-card"><div class="vc-sk">priateľ / priateľka</div><div class="vc-pron">prya-tyel / prya-tyel-ka</div><div class="vc-en">boyfriend / girlfriend</div><div class="vc-fr">petit ami / petite amie</div></div>
+      <div class="vocab-card"><div class="vc-sk">dieťa</div><div class="vc-pron">dye-tya</div><div class="vc-en">child</div><div class="vc-fr">enfant</div></div>
+      <div class="vocab-card"><div class="vc-sk">bábätko</div><div class="vc-pron">ba-bat-ko</div><div class="vc-en">baby</div><div class="vc-fr">bébé</div></div>
+      <div class="vocab-card"><div class="vc-sk">svokra</div><div class="vc-pron">svok-ra</div><div class="vc-en">mother-in-law</div><div class="vc-fr">belle-mère</div></div>
+      <div class="vocab-card"><div class="vc-sk">svokor</div><div class="vc-pron">svo-kor</div><div class="vc-en">father-in-law</div><div class="vc-fr">beau-père</div></div>
+    </div>
+  </div>
+
+  <!-- PLACES -->
+  <div id="places" class="vcat-section">
+    <div class="category-label">🏙️ Places — Miesta</div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="vc-sk">mesto</div><div class="vc-pron">mes-to</div><div class="vc-en">city / town</div><div class="vc-fr">ville</div></div>
+      <div class="vocab-card"><div class="vc-sk">dedina</div><div class="vc-pron">de-dee-na</div><div class="vc-en">village</div><div class="vc-fr">village</div></div>
+      <div class="vocab-card"><div class="vc-sk">ulica</div><div class="vc-pron">oo-li-tsa</div><div class="vc-en">street</div><div class="vc-fr">rue</div></div>
+      <div class="vocab-card"><div class="vc-sk">dom</div><div class="vc-pron">dom</div><div class="vc-en">house / home</div><div class="vc-fr">maison</div></div>
+      <div class="vocab-card"><div class="vc-sk">byt</div><div class="vc-pron">bit</div><div class="vc-en">apartment / flat</div><div class="vc-fr">appartement</div></div>
+      <div class="vocab-card"><div class="vc-sk">obchod</div><div class="vc-pron">ob-khod</div><div class="vc-en">shop / store</div><div class="vc-fr">magasin</div></div>
+      <div class="vocab-card"><div class="vc-sk">supermarket</div><div class="vc-pron">soo-per-mar-ket</div><div class="vc-en">supermarket</div><div class="vc-fr">supermarché</div></div>
+      <div class="vocab-card"><div class="vc-sk">reštaurácia</div><div class="vc-pron">resh-ta-u-ra-tsya</div><div class="vc-en">restaurant</div><div class="vc-fr">restaurant</div></div>
+      <div class="vocab-card"><div class="vc-sk">kaviareň</div><div class="vc-pron">ka-vya-ren</div><div class="vc-en">café</div><div class="vc-fr">café</div></div>
+      <div class="vocab-card"><div class="vc-sk">nemocnica</div><div class="vc-pron">ne-mots-ni-tsa</div><div class="vc-en">hospital</div><div class="vc-fr">hôpital</div></div>
+      <div class="vocab-card"><div class="vc-sk">lekáreň</div><div class="vc-pron">le-ka-ren</div><div class="vc-en">pharmacy</div><div class="vc-fr">pharmacie</div></div>
+      <div class="vocab-card"><div class="vc-sk">škola</div><div class="vc-pron">shko-la</div><div class="vc-en">school</div><div class="vc-fr">école</div></div>
+      <div class="vocab-card"><div class="vc-sk">univerzita</div><div class="vc-pron">u-ni-ver-zi-ta</div><div class="vc-en">university</div><div class="vc-fr">université</div></div>
+      <div class="vocab-card"><div class="vc-sk">park</div><div class="vc-pron">park</div><div class="vc-en">park</div><div class="vc-fr">parc</div></div>
+      <div class="vocab-card"><div class="vc-sk">les</div><div class="vc-pron">les</div><div class="vc-en">forest</div><div class="vc-fr">forêt</div></div>
+      <div class="vocab-card"><div class="vc-sk">hora</div><div class="vc-pron">ho-ra</div><div class="vc-en">mountain</div><div class="vc-fr">montagne</div></div>
+      <div class="vocab-card"><div class="vc-sk">rieka</div><div class="vc-pron">rye-ka</div><div class="vc-en">river</div><div class="vc-fr">rivière</div></div>
+      <div class="vocab-card"><div class="vc-sk">more</div><div class="vc-pron">mo-reh</div><div class="vc-en">sea</div><div class="vc-fr">mer</div></div>
+      <div class="vocab-card"><div class="vc-sk">letisko</div><div class="vc-pron">le-tis-ko</div><div class="vc-en">airport</div><div class="vc-fr">aéroport</div></div>
+      <div class="vocab-card"><div class="vc-sk">stanica</div><div class="vc-pron">sta-ni-tsa</div><div class="vc-en">train station</div><div class="vc-fr">gare</div></div>
+      <div class="vocab-card"><div class="vc-sk">kostol</div><div class="vc-pron">kos-tol</div><div class="vc-en">church</div><div class="vc-fr">église</div></div>
+      <div class="vocab-card"><div class="vc-sk">hrad</div><div class="vc-pron">hrad</div><div class="vc-en">castle</div><div class="vc-fr">château</div></div>
+      <div class="vocab-card"><div class="vc-sk">námestie</div><div class="vc-pron">na-mes-tyeh</div><div class="vc-en">square / plaza</div><div class="vc-fr">place</div></div>
+      <div class="vocab-card"><div class="vc-sk">bankomat</div><div class="vc-pron">ban-ko-mat</div><div class="vc-en">ATM</div><div class="vc-fr">distributeur</div></div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div id="body" class="vcat-section">
+    <div class="category-label">🫀 Body — Telo</div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="vc-sk">telo</div><div class="vc-pron">te-lo</div><div class="vc-en">body</div><div class="vc-fr">corps</div></div>
+      <div class="vocab-card"><div class="vc-sk">hlava</div><div class="vc-pron">hla-va</div><div class="vc-en">head</div><div class="vc-fr">tête</div></div>
+      <div class="vocab-card"><div class="vc-sk">tvár</div><div class="vc-pron">tvar</div><div class="vc-en">face</div><div class="vc-fr">visage</div></div>
+      <div class="vocab-card"><div class="vc-sk">oči</div><div class="vc-pron">o-chi</div><div class="vc-en">eyes</div><div class="vc-fr">yeux</div></div>
+      <div class="vocab-card"><div class="vc-sk">nos</div><div class="vc-pron">nos</div><div class="vc-en">nose</div><div class="vc-fr">nez</div></div>
+      <div class="vocab-card"><div class="vc-sk">ústa</div><div class="vc-pron">oos-ta</div><div class="vc-en">mouth</div><div class="vc-fr">bouche</div></div>
+      <div class="vocab-card"><div class="vc-sk">uši</div><div class="vc-pron">oo-shi</div><div class="vc-en">ears</div><div class="vc-fr">oreilles</div></div>
+      <div class="vocab-card"><div class="vc-sk">vlasy</div><div class="vc-pron">vla-si</div><div class="vc-en">hair</div><div class="vc-fr">cheveux</div></div>
+      <div class="vocab-card"><div class="vc-sk">krk</div><div class="vc-pron">krk</div><div class="vc-en">neck</div><div class="vc-fr">cou</div></div>
+      <div class="vocab-card"><div class="vc-sk">rameno</div><div class="vc-pron">ra-me-no</div><div class="vc-en">shoulder</div><div class="vc-fr">épaule</div></div>
+      <div class="vocab-card"><div class="vc-sk">ruka</div><div class="vc-pron">ru-ka</div><div class="vc-en">hand / arm</div><div class="vc-fr">main / bras</div></div>
+      <div class="vocab-card"><div class="vc-sk">prst</div><div class="vc-pron">prst</div><div class="vc-en">finger</div><div class="vc-fr">doigt</div></div>
+      <div class="vocab-card"><div class="vc-sk">hruď</div><div class="vc-pron">hrudj</div><div class="vc-en">chest</div><div class="vc-fr">poitrine</div></div>
+      <div class="vocab-card"><div class="vc-sk">brucho</div><div class="vc-pron">bru-kho</div><div class="vc-en">belly / stomach</div><div class="vc-fr">ventre</div></div>
+      <div class="vocab-card"><div class="vc-sk">chrbát</div><div class="vc-pron">khr-bat</div><div class="vc-en">back</div><div class="vc-fr">dos</div></div>
+      <div class="vocab-card"><div class="vc-sk">noha</div><div class="vc-pron">no-ha</div><div class="vc-en">leg / foot</div><div class="vc-fr">jambe / pied</div></div>
+      <div class="vocab-card"><div class="vc-sk">koleno</div><div class="vc-pron">ko-le-no</div><div class="vc-en">knee</div><div class="vc-fr">genou</div></div>
+      <div class="vocab-card"><div class="vc-sk">srdce</div><div class="vc-pron">srd-tse</div><div class="vc-en">heart</div><div class="vc-fr">cœur</div></div>
+      <div class="vocab-card"><div class="vc-sk">zub</div><div class="vc-pron">zub</div><div class="vc-en">tooth</div><div class="vc-fr">dent</div></div>
+      <div class="vocab-card"><div class="vc-sk">jazyk</div><div class="vc-pron">ya-zik</div><div class="vc-en">tongue / language</div><div class="vc-fr">langue</div></div>
+    </div>
+  </div>
+
+  <!-- FOOD -->
+  <div id="food" class="vcat-section">
+    <div class="category-label">🍽️ Food & Drink — Jedlo a Nápoje</div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="vc-sk">chlieb</div><div class="vc-pron">khlyeb</div><div class="vc-en">bread</div><div class="vc-fr">pain</div></div>
+      <div class="vocab-card"><div class="vc-sk">maslo</div><div class="vc-pron">mas-lo</div><div class="vc-en">butter</div><div class="vc-fr">beurre</div></div>
+      <div class="vocab-card"><div class="vc-sk">syr</div><div class="vc-pron">sir</div><div class="vc-en">cheese</div><div class="vc-fr">fromage</div></div>
+      <div class="vocab-card"><div class="vc-sk">mäso</div><div class="vc-pron">mye-so</div><div class="vc-en">meat</div><div class="vc-fr">viande</div></div>
+      <div class="vocab-card"><div class="vc-sk">kuracie</div><div class="vc-pron">ku-ra-tsye</div><div class="vc-en">chicken</div><div class="vc-fr">poulet</div></div>
+      <div class="vocab-card"><div class="vc-sk">ryba</div><div class="vc-pron">ri-ba</div><div class="vc-en">fish</div><div class="vc-fr">poisson</div></div>
+      <div class="vocab-card"><div class="vc-sk">vajce</div><div class="vc-pron">vay-tse</div><div class="vc-en">egg</div><div class="vc-fr">œuf</div></div>
+      <div class="vocab-card"><div class="vc-sk">zelenina</div><div class="vc-pron">ze-le-ni-na</div><div class="vc-en">vegetables</div><div class="vc-fr">légumes</div></div>
+      <div class="vocab-card"><div class="vc-sk">ovocie</div><div class="vc-pron">o-vo-tsye</div><div class="vc-en">fruit</div><div class="vc-fr">fruits</div></div>
+      <div class="vocab-card"><div class="vc-sk">jablko</div><div class="vc-pron">yab-lko</div><div class="vc-en">apple</div><div class="vc-fr">pomme</div></div>
+      <div class="vocab-card"><div class="vc-sk">jahody</div><div class="vc-pron">ya-ho-di</div><div class="vc-en">strawberries</div><div class="vc-fr">fraises</div></div>
+      <div class="vocab-card"><div class="vc-sk">polievka</div><div class="vc-pron">po-lyev-ka</div><div class="vc-en">soup</div><div class="vc-fr">soupe</div></div>
+      <div class="vocab-card"><div class="vc-sk">cestoviny</div><div class="vc-pron">tses-to-vi-ni</div><div class="vc-en">pasta</div><div class="vc-fr">pâtes</div></div>
+      <div class="vocab-card"><div class="vc-sk">zemiaky</div><div class="vc-pron">ze-mya-ki</div><div class="vc-en">potatoes</div><div class="vc-fr">pommes de terre</div></div>
+      <div class="vocab-card"><div class="vc-sk">ryža</div><div class="vc-pron">ri-zha</div><div class="vc-en">rice</div><div class="vc-fr">riz</div></div>
+      <div class="vocab-card"><div class="vc-sk">voda</div><div class="vc-pron">vo-da</div><div class="vc-en">water</div><div class="vc-fr">eau</div></div>
+      <div class="vocab-card"><div class="vc-sk">káva</div><div class="vc-pron">ka-va</div><div class="vc-en">coffee</div><div class="vc-fr">café</div></div>
+      <div class="vocab-card"><div class="vc-sk">čaj</div><div class="vc-pron">chay</div><div class="vc-en">tea</div><div class="vc-fr">thé</div></div>
+      <div class="vocab-card"><div class="vc-sk">víno</div><div class="vc-pron">vee-no</div><div class="vc-en">wine</div><div class="vc-fr">vin</div></div>
+      <div class="vocab-card"><div class="vc-sk">pivo</div><div class="vc-pron">pi-vo</div><div class="vc-en">beer</div><div class="vc-fr">bière</div></div>
+      <div class="vocab-card"><div class="vc-sk">mlieko</div><div class="vc-pron">mlye-ko</div><div class="vc-en">milk</div><div class="vc-fr">lait</div></div>
+      <div class="vocab-card"><div class="vc-sk">koláč</div><div class="vc-pron">ko-lach</div><div class="vc-en">cake / pastry</div><div class="vc-fr">gâteau</div></div>
+      <div class="vocab-card"><div class="vc-sk">zmrzlina</div><div class="vc-pron">zmrz-li-na</div><div class="vc-en">ice cream</div><div class="vc-fr">glace</div></div>
+      <div class="vocab-card"><div class="vc-sk">čokoláda</div><div class="vc-pron">cho-ko-la-da</div><div class="vc-en">chocolate</div><div class="vc-fr">chocolat</div></div>
+    </div>
+    <div class="grammar-note"><strong>🍽️ Slovak dish to try:</strong> <em>Bryndzové halušky</em> (brind-zo-veh ha-loosh-ki) — potato dumplings with sheep cheese. Slovakia's national dish!</div>
+  </div>
+
+  <!-- W-QUESTIONS -->
+  <div id="wq" class="vcat-section">
+    <div class="category-label">❓ Question Words — Opytovací výrazy</div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="vc-sk">Kto?</div><div class="vc-pron">kto</div><div class="vc-en">Who?</div><div class="vc-fr">Qui?</div></div>
+      <div class="vocab-card"><div class="vc-sk">Čo?</div><div class="vc-pron">cho</div><div class="vc-en">What?</div><div class="vc-fr">Quoi? / Que?</div></div>
+      <div class="vocab-card"><div class="vc-sk">Kde?</div><div class="vc-pron">kdeh</div><div class="vc-en">Where?</div><div class="vc-fr">Où?</div></div>
+      <div class="vocab-card"><div class="vc-sk">Kam?</div><div class="vc-pron">kam</div><div class="vc-en">Where to?</div><div class="vc-fr">Où (vers)?</div></div>
+      <div class="vocab-card"><div class="vc-sk">Kedy?</div><div class="vc-pron">ke-di</div><div class="vc-en">When?</div><div class="vc-fr">Quand?</div></div>
+      <div class="vocab-card"><div class="vc-sk">Prečo?</div><div class="vc-pron">pre-cho</div><div class="vc-en">Why?</div><div class="vc-fr">Pourquoi?</div></div>
+      <div class="vocab-card"><div class="vc-sk">Ako?</div><div class="vc-pron">a-ko</div><div class="vc-en">How?</div><div class="vc-fr">Comment?</div></div>
+      <div class="vocab-card"><div class="vc-sk">Koľko?</div><div class="vc-pron">kol-ko</div><div class="vc-en">How many / much?</div><div class="vc-fr">Combien?</div></div>
+      <div class="vocab-card"><div class="vc-sk">Ktorý?</div><div class="vc-pron">kto-ree</div><div class="vc-en">Which? (m.)</div><div class="vc-fr">Lequel?</div></div>
+      <div class="vocab-card"><div class="vc-sk">Ktorá?</div><div class="vc-pron">kto-ra</div><div class="vc-en">Which? (f.)</div><div class="vc-fr">Laquelle?</div></div>
+      <div class="vocab-card"><div class="vc-sk">Čí?</div><div class="vc-pron">chi</div><div class="vc-en">Whose?</div><div class="vc-fr">À qui?</div></div>
+      <div class="vocab-card"><div class="vc-sk">Aký?</div><div class="vc-pron">a-kee</div><div class="vc-en">What kind of? (m.)</div><div class="vc-fr">Quel?</div></div>
+    </div>
+    <div class="grammar-note"><strong>💡 Tip:</strong> <em>Kde</em> = where something IS. <em>Kam</em> = where you are GOING TO. «Kde si?» (Where are you?) vs «Kam ideš?» (Where are you going?)</div>
+  </div>
+
+  <!-- DAYS -->
+  <div id="days" class="vcat-section">
+    <div class="category-label">📅 Days of the Week — Dni v týždni</div>
+    <table class="time-table">
+      <thead><tr><th>🇸🇰 Slovak</th><th>Pronunciation</th><th>🇬🇧 English</th><th>🇫🇷 Français</th></tr></thead>
+      <tbody>
+        <tr><td><span class="t-sk">pondelok</span><br><span class="t-pron">pon-de-lok</span></td><td></td><td class="t-en">Monday</td><td class="t-fr">lundi</td></tr>
+        <tr><td><span class="t-sk">utorok</span><br><span class="t-pron">u-to-rok</span></td><td></td><td class="t-en">Tuesday</td><td class="t-fr">mardi</td></tr>
+        <tr><td><span class="t-sk">streda</span><br><span class="t-pron">stre-da</span></td><td></td><td class="t-en">Wednesday</td><td class="t-fr">mercredi</td></tr>
+        <tr><td><span class="t-sk">štvrtok</span><br><span class="t-pron">shtv-rtok</span></td><td></td><td class="t-en">Thursday</td><td class="t-fr">jeudi</td></tr>
+        <tr><td><span class="t-sk">piatok</span><br><span class="t-pron">pya-tok</span></td><td></td><td class="t-en">Friday</td><td class="t-fr">vendredi</td></tr>
+        <tr><td><span class="t-sk">sobota</span><br><span class="t-pron">so-bo-ta</span></td><td></td><td class="t-en">Saturday</td><td class="t-fr">samedi</td></tr>
+        <tr><td><span class="t-sk">nedeľa</span><br><span class="t-pron">ne-dye-lya</span></td><td></td><td class="t-en">Sunday</td><td class="t-fr">dimanche</td></tr>
+      </tbody>
+    </table>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="vc-sk">dnes</div><div class="vc-pron">dnes</div><div class="vc-en">today</div><div class="vc-fr">aujourd'hui</div></div>
+      <div class="vocab-card"><div class="vc-sk">zajtra</div><div class="vc-pron">zay-tra</div><div class="vc-en">tomorrow</div><div class="vc-fr">demain</div></div>
+      <div class="vocab-card"><div class="vc-sk">včera</div><div class="vc-pron">vche-ra</div><div class="vc-en">yesterday</div><div class="vc-fr">hier</div></div>
+      <div class="vocab-card"><div class="vc-sk">týždeň</div><div class="vc-pron">teezh-dyen</div><div class="vc-en">week</div><div class="vc-fr">semaine</div></div>
+      <div class="vocab-card"><div class="vc-sk">víkend</div><div class="vc-pron">vee-kend</div><div class="vc-en">weekend</div><div class="vc-fr">week-end</div></div>
+      <div class="vocab-card"><div class="vc-sk">deň</div><div class="vc-pron">dyen</div><div class="vc-en">day</div><div class="vc-fr">jour</div></div>
+    </div>
+    <div class="grammar-fr"><strong>🇫🇷 Note:</strong> In Slovak, days of the week are NOT capitalized (unlike in English, similar to French). So you write <em>pondelok</em>, not <em>Pondelok</em>.</div>
+  </div>
+
+  <!-- TIME -->
+  <div id="time" class="vcat-section">
+    <div class="category-label">🕐 Time & Hours — Čas</div>
+    <table class="time-table">
+      <thead><tr><th>🇸🇰 Slovak</th><th>🇬🇧 English</th><th>🇫🇷 Français</th></tr></thead>
+      <tbody>
+        <tr><td><span class="t-sk">Koľko je hodín?</span><br><span class="t-pron">kol-ko ye ho-din</span></td><td class="t-en">What time is it?</td><td class="t-fr">Quelle heure est-il?</td></tr>
+        <tr><td><span class="t-sk">Je jedna hodina.</span><br><span class="t-pron">ye yed-na ho-di-na</span></td><td class="t-en">It is one o'clock.</td><td class="t-fr">Il est une heure.</td></tr>
+        <tr><td><span class="t-sk">Je pol druhej.</span><br><span class="t-pron">ye pol dru-hey</span></td><td class="t-en">It is half past one. (lit. "half of two")</td><td class="t-fr">Il est une heure et demie.</td></tr>
+        <tr><td><span class="t-sk">štvrť na tri</span><br><span class="t-pron">shtvrtj na tri</span></td><td class="t-en">quarter past two (lit. "quarter to three")</td><td class="t-fr">deux heures et quart</td></tr>
+        <tr><td><span class="t-sk">tri štvrte na štyri</span><br><span class="t-pron">tri shtvr-te na shti-ri</span></td><td class="t-en">quarter to four</td><td class="t-fr">quatre heures moins le quart</td></tr>
+        <tr><td><span class="t-sk">ráno</span><br><span class="t-pron">ra-no</span></td><td class="t-en">morning / a.m.</td><td class="t-fr">matin</td></tr>
+        <tr><td><span class="t-sk">poludnie</span><br><span class="t-pron">po-lud-nyeh</span></td><td class="t-en">noon / midday</td><td class="t-fr">midi</td></tr>
+        <tr><td><span class="t-sk">popoludní</span><br><span class="t-pron">po-po-lud-nee</span></td><td class="t-en">afternoon / p.m.</td><td class="t-fr">après-midi</td></tr>
+        <tr><td><span class="t-sk">večer</span><br><span class="t-pron">ve-cher</span></td><td class="t-en">evening</td><td class="t-fr">soir</td></tr>
+        <tr><td><span class="t-sk">noc</span><br><span class="t-pron">nots</span></td><td class="t-en">night</td><td class="t-fr">nuit</td></tr>
+        <tr><td><span class="t-sk">polnoc</span><br><span class="t-pron">pol-nots</span></td><td class="t-en">midnight</td><td class="t-fr">minuit</td></tr>
+        <tr><td><span class="t-sk">hodina</span><br><span class="t-pron">ho-di-na</span></td><td class="t-en">hour</td><td class="t-fr">heure</td></tr>
+        <tr><td><span class="t-sk">minúta</span><br><span class="t-pron">mi-noo-ta</span></td><td class="t-en">minute</td><td class="t-fr">minute</td></tr>
+        <tr><td><span class="t-sk">sekunda</span><br><span class="t-pron">se-kun-da</span></td><td class="t-en">second</td><td class="t-fr">seconde</td></tr>
+      </tbody>
+    </table>
+    <div class="grammar-note"><strong>⚠️ Tricky!</strong> Slovak "half past" works differently: <em>pol druhej</em> literally means "half of two" = 1:30. Think of it as "halfway through the second hour" — so <em>pol</em> + the NEXT hour.</div>
+  </div>
+
+  <!-- MONTHS -->
+  <div id="months" class="vcat-section">
+    <div class="category-label">🗓️ Months — Mesiace</div>
+    <table class="time-table">
+      <thead><tr><th>#</th><th>🇸🇰 Slovak</th><th>🇬🇧 English</th><th>🇫🇷 Français</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td><span class="t-sk">január</span><br><span class="t-pron">yan-u-ar</span></td><td class="t-en">January</td><td class="t-fr">janvier</td></tr>
+        <tr><td><strong>2</strong></td><td><span class="t-sk">február</span><br><span class="t-pron">feb-ru-ar</span></td><td class="t-en">February</td><td class="t-fr">février</td></tr>
+        <tr><td><strong>3</strong></td><td><span class="t-sk">marec</span><br><span class="t-pron">ma-rets</span></td><td class="t-en">March</td><td class="t-fr">mars</td></tr>
+        <tr><td><strong>4</strong></td><td><span class="t-sk">apríl</span><br><span class="t-pron">ap-reel</span></td><td class="t-en">April</td><td class="t-fr">avril</td></tr>
+        <tr><td><strong>5</strong></td><td><span class="t-sk">máj</span><br><span class="t-pron">may</span></td><td class="t-en">May</td><td class="t-fr">mai</td></tr>
+        <tr><td><strong>6</strong></td><td><span class="t-sk">jún</span><br><span class="t-pron">yoon</span></td><td class="t-en">June</td><td class="t-fr">juin</td></tr>
+        <tr><td><strong>7</strong></td><td><span class="t-sk">júl</span><br><span class="t-pron">yool</span></td><td class="t-en">July</td><td class="t-fr">juillet</td></tr>
+        <tr><td><strong>8</strong></td><td><span class="t-sk">august</span><br><span class="t-pron">au-gust</span></td><td class="t-en">August</td><td class="t-fr">août</td></tr>
+        <tr><td><strong>9</strong></td><td><span class="t-sk">september</span><br><span class="t-pron">sep-tem-ber</span></td><td class="t-en">September</td><td class="t-fr">septembre</td></tr>
+        <tr><td><strong>10</strong></td><td><span class="t-sk">október</span><br><span class="t-pron">ok-to-ber</span></td><td class="t-en">October</td><td class="t-fr">octobre</td></tr>
+        <tr><td><strong>11</strong></td><td><span class="t-sk">november</span><br><span class="t-pron">no-vem-ber</span></td><td class="t-en">November</td><td class="t-fr">novembre</td></tr>
+        <tr><td><strong>12</strong></td><td><span class="t-sk">december</span><br><span class="t-pron">de-tsem-ber</span></td><td class="t-en">December</td><td class="t-fr">décembre</td></tr>
+      </tbody>
+    </table>
+    <div class="grammar-fr"><strong>🇫🇷 Bonne nouvelle!</strong> The Slovak month names are very similar to French and English. Once you've seen them once, you'll remember them all! They are also NOT capitalized in Slovak.</div>
+    <div class="vocab-grid" style="margin-top:20px;">
+      <div class="vocab-card"><div class="vc-sk">mesiac</div><div class="vc-pron">me-syats</div><div class="vc-en">month</div><div class="vc-fr">mois</div></div>
+      <div class="vocab-card"><div class="vc-sk">rok</div><div class="vc-pron">rok</div><div class="vc-en">year</div><div class="vc-fr">an / année</div></div>
+      <div class="vocab-card"><div class="vc-sk">tento mesiac</div><div class="vc-pron">ten-to me-syats</div><div class="vc-en">this month</div><div class="vc-fr">ce mois-ci</div></div>
+      <div class="vocab-card"><div class="vc-sk">budúci rok</div><div class="vc-pron">bu-doo-tsi rok</div><div class="vc-en">next year</div><div class="vc-fr">l'année prochaine</div></div>
+    </div>
+  </div>
+
+  <!-- SEASONS -->
+  <div id="seasons" class="vcat-section">
+    <div class="category-label">🌸 Seasons — Ročné obdobia</div>
+    <div class="season-grid">
+      <div class="season-card spring"><span class="season-icon">🌸</span><div class="season-sk">jar</div><div class="season-pron">yar</div><div class="season-en">spring</div><div class="season-fr">printemps</div></div>
+      <div class="season-card summer"><span class="season-icon">☀️</span><div class="season-sk">leto</div><div class="season-pron">le-to</div><div class="season-en">summer</div><div class="season-fr">été</div></div>
+      <div class="season-card autumn"><span class="season-icon">🍂</span><div class="season-sk">jeseň</div><div class="season-pron">ye-sen</div><div class="season-en">autumn / fall</div><div class="season-fr">automne</div></div>
+      <div class="season-card winter"><span class="season-icon">❄️</span><div class="season-sk">zima</div><div class="season-pron">zi-ma</div><div class="season-en">winter</div><div class="season-fr">hiver</div></div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="vc-sk">počasie</div><div class="vc-pron">po-cha-sye</div><div class="vc-en">weather</div><div class="vc-fr">météo / temps</div></div>
+      <div class="vocab-card"><div class="vc-sk">teplo</div><div class="vc-pron">tep-lo</div><div class="vc-en">warm / warmth</div><div class="vc-fr">chaud / chaleur</div></div>
+      <div class="vocab-card"><div class="vc-sk">zima (cold)</div><div class="vc-pron">zi-ma</div><div class="vc-en">cold (also = winter!)</div><div class="vc-fr">froid (aussi hiver!)</div></div>
+      <div class="vocab-card"><div class="vc-sk">dážď</div><div class="vc-pron">dazhdzh</div><div class="vc-en">rain</div><div class="vc-fr">pluie</div></div>
+      <div class="vocab-card"><div class="vc-sk">sneh</div><div class="vc-pron">sneh</div><div class="vc-en">snow</div><div class="vc-fr">neige</div></div>
+      <div class="vocab-card"><div class="vc-sk">slnko</div><div class="vc-pron">sln-ko</div><div class="vc-en">sun</div><div class="vc-fr">soleil</div></div>
+      <div class="vocab-card"><div class="vc-sk">vietor</div><div class="vc-pron">vye-tor</div><div class="vc-en">wind</div><div class="vc-fr">vent</div></div>
+      <div class="vocab-card"><div class="vc-sk">oblak</div><div class="vc-pron">ob-lak</div><div class="vc-en">cloud</div><div class="vc-fr">nuage</div></div>
+    </div>
+    <div class="grammar-note"><strong>🤔 Fun fact:</strong> The word <em>zima</em> means BOTH "winter" AND "cold" — so «Je zima» means "It is winter" or "It is cold" depending on context. Clever!</div>
+  </div>
+
+  <!-- CLOTHING -->
+  <div id="clothing" class="vcat-section">
+    <div class="category-label">👗 Clothing — Oblečenie</div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><div class="vc-sk">tričko</div><div class="vc-pron">trich-ko</div><div class="vc-en">t-shirt</div><div class="vc-fr">t-shirt</div></div>
+      <div class="vocab-card"><div class="vc-sk">košeľa</div><div class="vc-pron">ko-she-lya</div><div class="vc-en">shirt (button-up)</div><div class="vc-fr">chemise</div></div>
+      <div class="vocab-card"><div class="vc-sk">sveter</div><div class="vc-pron">sve-ter</div><div class="vc-en">sweater / jumper</div><div class="vc-fr">pull</div></div>
+      <div class="vocab-card"><div class="vc-sk">bunda</div><div class="vc-pron">bun-da</div><div class="vc-en">jacket / coat</div><div class="vc-fr">veste / manteau</div></div>
+      <div class="vocab-card"><div class="vc-sk">kabát</div><div class="vc-pron">ka-bat</div><div class="vc-en">coat / overcoat</div><div class="vc-fr">manteau</div></div>
+      <div class="vocab-card"><div class="vc-sk">nohavice</div><div class="vc-pron">no-ha-vi-tse</div><div class="vc-en">trousers / pants</div><div class="vc-fr">pantalon</div></div>
+      <div class="vocab-card"><div class="vc-sk">džínsy</div><div class="vc-pron">dzhin-si</div><div class="vc-en">jeans</div><div class="vc-fr">jean</div></div>
+      <div class="vocab-card"><div class="vc-sk">sukňa</div><div class="vc-pron">suk-nya</div><div class="vc-en">skirt</div><div class="vc-fr">jupe</div></div>
+      <div class="vocab-card"><div class="vc-sk">šaty</div><div class="vc-pron">sha-ti</div><div class="vc-en">dress</div><div class="vc-fr">robe</div></div>
+      <div class="vocab-card"><div class="vc-sk">topánky</div><div class="vc-pron">to-pan-ki</div><div class="vc-en">shoes</div><div class="vc-fr">chaussures</div></div>
+      <div class="vocab-card"><div class="vc-sk">čižmy</div><div class="vc-pron">chizh-mi</div><div class="vc-en">boots</div><div class="vc-fr">bottes</div></div>
+      <div class="vocab-card"><div class="vc-sk">tenisky</div><div class="vc-pron">te-nis-ki</div><div class="vc-en">sneakers / trainers</div><div class="vc-fr">baskets</div></div>
+      <div class="vocab-card"><div class="vc-sk">ponožky</div><div class="vc-pron">po-nozh-ki</div><div class="vc-en">socks</div><div class="vc-fr">chaussettes</div></div>
+      <div class="vocab-card"><div class="vc-sk">spodná bielizeň</div><div class="vc-pron">spod-na bye-li-zen</div><div class="vc-en">underwear</div><div class="vc-fr">sous-vêtements</div></div>
+      <div class="vocab-card"><div class="vc-sk">šál</div><div class="vc-pron">shal</div><div class="vc-en">scarf</div><div class="vc-fr">écharpe</div></div>
+      <div class="vocab-card"><div class="vc-sk">rukavice</div><div class="vc-pron">ru-ka-vi-tse</div><div class="vc-en">gloves</div><div class="vc-fr">gants</div></div>
+      <div class="vocab-card"><div class="vc-sk">čiapka</div><div class="vc-pron">chyap-ka</div><div class="vc-en">hat / beanie</div><div class="vc-fr">bonnet / chapeau</div></div>
+      <div class="vocab-card"><div class="vc-sk">klobúk</div><div class="vc-pron">klo-book</div><div class="vc-en">hat (brimmed)</div><div class="vc-fr">chapeau (à bord)</div></div>
+      <div class="vocab-card"><div class="vc-sk">kabelka</div><div class="vc-pron">ka-bel-ka</div><div class="vc-en">handbag / purse</div><div class="vc-fr">sac à main</div></div>
+      <div class="vocab-card"><div class="vc-sk">opasok</div><div class="vc-pron">o-pa-sok</div><div class="vc-en">belt</div><div class="vc-fr">ceinture</div></div>
+      <div class="vocab-card"><div class="vc-sk">pyžamo</div><div class="vc-pron">pi-zhamo</div><div class="vc-en">pyjamas</div><div class="vc-fr">pyjama</div></div>
+      <div class="vocab-card"><div class="vc-sk">plavky</div><div class="vc-pron">plav-ki</div><div class="vc-en">swimsuit / swimwear</div><div class="vc-fr">maillot de bain</div></div>
+    </div>
+    <div class="grammar-fr"><strong>🛍️ Shopping phrases:</strong> «Môžem si to vyskúšať?» (mwozh-em si to vis-koo-shat) = Can I try it on? / «Aká je vaša veľkosť?» = What is your size?</div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="heart">❤️</div>
+  <p>Made with love for a Slovak-French love story.</p>
+  <p style="margin-top:4px; font-size:0.8rem; opacity:0.6;">Veľa šťastia s učením sa slovenčiny! · Bonne chance pour apprendre le slovaque!</p>
+</footer>
+
+<script>
+// Tab switching
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('visible');
+  event.target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Vocabulary sub-nav
+function showVcat(id) {
+  document.querySelectorAll('.vcat-section').forEach(s => s.classList.remove('vvisible'));
+  document.querySelectorAll('.vcat-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('vvisible');
+  event.target.classList.add('active');
+}
+
+// Quiz data
+const questions = [
+  { q: 'Ahoj!', hint: 'A casual greeting', correct: 'Hi / Hello', options: ['Hi / Hello', 'Goodbye', 'Thank you', 'Please'] },
+  { q: 'Ďakujem', hint: 'Showing gratitude', correct: 'Thank you', options: ['You\'re welcome', 'Thank you', 'Excuse me', 'Sorry'] },
+  { q: 'Dobrý deň', hint: 'A formal greeting', correct: 'Good day / Hello', options: ['Good night', 'Good day / Hello', 'Good morning', 'Good evening'] },
+  { q: 'Áno', hint: 'Affirmative answer', correct: 'Yes', options: ['No', 'Maybe', 'Yes', 'Please'] },
+  { q: 'Nie', hint: 'Negative answer', correct: 'No', options: ['Yes', 'No', 'Why', 'Where'] },
+  { q: 'Prosím', hint: 'Used when requesting or thanking', correct: 'Please / You\'re welcome', options: ['Sorry', 'Thank you', 'Please / You\'re welcome', 'Goodbye'] },
+  { q: 'Ľúbim ťa', hint: 'The most important phrase! ❤️', correct: 'I love you', options: ['I miss you', 'You are beautiful', 'I love you', 'I like you'] },
+  { q: 'Chýbaš mi', hint: 'When someone is away...', correct: 'I miss you', options: ['I love you', 'I miss you', 'I see you', 'I want you'] },
+  { q: 'Si krásna', hint: 'A beautiful compliment', correct: 'You are beautiful', options: ['You are kind', 'You are funny', 'You are beautiful', 'You are smart'] },
+  { q: 'Dobrú noc', hint: 'Said before sleeping', correct: 'Good night', options: ['Good morning', 'Good evening', 'Good night', 'Sleep well'] },
+  { q: 'Nerozumiem', hint: 'When you don\'t follow...', correct: 'I don\'t understand', options: ['I don\'t know', 'I don\'t understand', 'I can\'t hear', 'I don\'t speak'] },
+  { q: 'päť', hint: 'A number', correct: '5', options: ['3', '7', '5', '9'] },
+  { q: 'desať', hint: 'A number', correct: '10', options: ['10', '12', '8', '20'] },
+  { q: 'Zbohom', hint: 'A formal farewell', correct: 'Goodbye (formal)', options: ['See you soon', 'Good night', 'Goodbye (formal)', 'Bye (casual)'] },
+  { q: 'Dobrý večer', hint: 'An evening greeting', correct: 'Good evening', options: ['Good morning', 'Good evening', 'Good night', 'Good day'] },
+  // Family
+  { q: 'mama', hint: 'Family member', correct: 'mother / mum', options: ['mother / mum', 'sister', 'daughter', 'aunt'] },
+  { q: 'brat', hint: 'Family member', correct: 'brother', options: ['father', 'brother', 'uncle', 'son'] },
+  { q: 'dcéra', hint: 'Family member', correct: 'daughter', options: ['sister', 'daughter', 'aunt', 'grandmother'] },
+  { q: 'starý otec', hint: 'A grandparent', correct: 'grandfather', options: ['grandfather', 'grandmother', 'uncle', 'father'] },
+  { q: 'rodina', hint: 'The whole group of relatives', correct: 'family', options: ['family', 'friend', 'neighbour', 'couple'] },
+  // Places
+  { q: 'mesto', hint: 'A place where many people live', correct: 'city / town', options: ['village', 'city / town', 'forest', 'mountain'] },
+  { q: 'reštaurácia', hint: 'A place to eat', correct: 'restaurant', options: ['café', 'restaurant', 'supermarket', 'hospital'] },
+  { q: 'letisko', hint: 'For flights and travel', correct: 'airport', options: ['train station', 'airport', 'hotel', 'bus stop'] },
+  { q: 'hrad', hint: 'Slovakia has many of these!', correct: 'castle', options: ['church', 'castle', 'museum', 'bridge'] },
+  // Body
+  { q: 'hlava', hint: 'Top of the body', correct: 'head', options: ['head', 'hand', 'heart', 'hair'] },
+  { q: 'srdce', hint: 'What loves ❤️', correct: 'heart', options: ['eye', 'stomach', 'heart', 'mouth'] },
+  { q: 'oči', hint: 'You read with these', correct: 'eyes', options: ['ears', 'eyes', 'nose', 'hands'] },
+  { q: 'vlasy', hint: 'On your head', correct: 'hair', options: ['face', 'hair', 'teeth', 'neck'] },
+  // Food
+  { q: 'voda', hint: 'Essential for life', correct: 'water', options: ['wine', 'milk', 'water', 'juice'] },
+  { q: 'chlieb', hint: 'A staple food', correct: 'bread', options: ['bread', 'cake', 'cheese', 'butter'] },
+  { q: 'víno', hint: 'A popular drink in France too!', correct: 'wine', options: ['beer', 'water', 'wine', 'milk'] },
+  { q: 'vajce', hint: 'For breakfast', correct: 'egg', options: ['egg', 'cheese', 'butter', 'bread'] },
+  { q: 'syr', hint: 'The French love this!', correct: 'cheese', options: ['cheese', 'butter', 'milk', 'meat'] },
+  // Question words
+  { q: 'Kde?', hint: 'Asking about location', correct: 'Where?', options: ['Who?', 'When?', 'Where?', 'Why?'] },
+  { q: 'Prečo?', hint: 'Asking for a reason', correct: 'Why?', options: ['How?', 'Why?', 'What?', 'When?'] },
+  { q: 'Kto?', hint: 'Asking about a person', correct: 'Who?', options: ['Who?', 'What?', 'Which?', 'How many?'] },
+  { q: 'Koľko?', hint: 'Asking about quantity or price', correct: 'How many / much?', options: ['How?', 'Which?', 'How many / much?', 'When?'] },
+  // Days
+  { q: 'pondelok', hint: 'Start of the work week', correct: 'Monday', options: ['Monday', 'Tuesday', 'Wednesday', 'Sunday'] },
+  { q: 'piatok', hint: 'Start of the weekend!', correct: 'Friday', options: ['Thursday', 'Friday', 'Saturday', 'Wednesday'] },
+  { q: 'nedeľa', hint: 'The last day of the week', correct: 'Sunday', options: ['Saturday', 'Sunday', 'Monday', 'Friday'] },
+  { q: 'zajtra', hint: 'Not today, not yesterday...', correct: 'tomorrow', options: ['yesterday', 'today', 'tomorrow', 'next week'] },
+  // Time
+  { q: 'ráno', hint: 'The first part of the day', correct: 'morning', options: ['evening', 'morning', 'afternoon', 'midnight'] },
+  { q: 'polnoc', hint: 'Exactly 00:00', correct: 'midnight', options: ['noon', 'midnight', 'evening', 'morning'] },
+  // Months
+  { q: 'január', hint: 'First month of the year', correct: 'January', options: ['January', 'February', 'March', 'December'] },
+  { q: 'december', hint: 'Christmas month!', correct: 'December', options: ['November', 'October', 'December', 'January'] },
+  { q: 'máj', hint: 'Month 5', correct: 'May', options: ['April', 'May', 'June', 'March'] },
+  // Seasons
+  { q: 'leto', hint: 'Hot season', correct: 'summer', options: ['spring', 'summer', 'autumn', 'winter'] },
+  { q: 'zima', hint: 'Cold season (or just "cold"!)', correct: 'winter / cold', options: ['spring', 'autumn', 'winter / cold', 'warmth'] },
+  { q: 'jar', hint: 'Season of flowers 🌸', correct: 'spring', options: ['spring', 'summer', 'autumn', 'winter'] },
+  { q: 'sneh', hint: 'Falls from sky in winter ❄️', correct: 'snow', options: ['rain', 'snow', 'wind', 'sun'] },
+  // Clothing
+  { q: 'šaty', hint: 'What a woman wears to a party', correct: 'dress', options: ['skirt', 'dress', 'jacket', 'shirt'] },
+  { q: 'topánky', hint: 'You wear these on your feet', correct: 'shoes', options: ['socks', 'gloves', 'shoes', 'hat'] },
+  { q: 'čiapka', hint: 'Keeps your head warm in winter', correct: 'hat / beanie', options: ['scarf', 'hat / beanie', 'gloves', 'coat'] },
+  { q: 'nohavice', hint: 'Covers both legs', correct: 'trousers / pants', options: ['skirt', 'dress', 'trousers / pants', 'socks'] },
+];
+
+let shuffled = [];
+let current = 0;
+let score = 0;
+let total = 0;
+let answered = false;
+
+function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+
+function startQuiz() {
+  shuffled = shuffle(questions);
+  current = 0; score = 0; total = 0; answered = false;
+  showQuestion();
+}
+
+function showQuestion() {
+  if (current >= shuffled.length) {
+    document.getElementById('quizQ').textContent = '🎉 Quiz Complete!';
+    document.getElementById('quizSub').textContent = `You scored ${score} out of ${shuffled.length}. Amazing work!`;
+    document.getElementById('quizOpts').innerHTML = '';
+    document.getElementById('quizFeedback').textContent = score === shuffled.length ? '⭐ Perfect score! Výborne!' : 'Keep practicing — Veľa šťastia!';
+    document.getElementById('quizFeedback').className = 'quiz-feedback good';
+    return;
+  }
+  const q = shuffled[current];
+  answered = false;
+  document.getElementById('quizQ').textContent = q.q;
+  document.getElementById('quizSub').textContent = q.hint;
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+
+  const opts = shuffle(q.options);
+  const container = document.getElementById('quizOpts');
+  container.innerHTML = '';
+  opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    btn.onclick = () => checkAnswer(opt, q.correct);
+    container.appendChild(btn);
+  });
+  updateScore();
+}
+
+function checkAnswer(chosen, correct) {
+  if (answered) return;
+  answered = true;
+  total++;
+  const btns = document.querySelectorAll('.quiz-opt');
+  btns.forEach(b => {
+    b.style.cursor = 'default';
+    if (b.textContent === correct) b.classList.add('correct');
+    else if (b.textContent === chosen && chosen !== correct) b.classList.add('wrong');
+  });
+  const fb = document.getElementById('quizFeedback');
+  if (chosen === correct) {
+    score++;
+    fb.textContent = ['✅ Správne! Correct!', '✅ Výborne! Excellent!', '✅ Áno! That\'s right!'][Math.floor(Math.random()*3)];
+    fb.className = 'quiz-feedback good';
+  } else {
+    fb.textContent = `❌ The answer is: "${correct}"`;
+    fb.className = 'quiz-feedback bad';
+  }
+  updateScore();
+}
+
+function nextQuestion() {
+  current++;
+  showQuestion();
+}
+
+function resetQuiz() { startQuiz(); }
+function updateScore() {
+  document.getElementById('scoreDisplay').textContent = `${score} / ${shuffled.length}`;
+}
+
+startQuiz();
+</script>
+</body>
+</html>
